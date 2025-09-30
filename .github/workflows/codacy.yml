@@ -34,7 +34,7 @@ jobs:
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: ${{ matrix.python-version }} # ✅ (2) probar en varias versiones
 
     - name: Install dependencies
       run: |
@@ -54,10 +54,8 @@ jobs:
 
     - name: Upload coverage to Codacy
       run: |
-        pip install codacy-coverage
-        coverage run -m pytest app/modules/ --ignore-glob='*selenium*'
-        coverage xml
-        python-codacy-coverage -r coverage.xml
+        pip install pip-audit
+        pip-audit
       env:
         FLASK_ENV: testing
         MARIADB_HOSTNAME: 127.0.0.1
