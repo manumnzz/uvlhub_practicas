@@ -54,8 +54,10 @@ jobs:
 
     - name: Upload coverage to Codacy
       run: |
-        pip install pip-audit
-        pip-audit
+        pip install codacy-coverage
+        coverage run -m pytest app/modules/ --ignore-glob='*selenium*'
+        coverage xml
+        python-codacy-coverage -r coverage.xml
       env:
         FLASK_ENV: testing
         MARIADB_HOSTNAME: 127.0.0.1
